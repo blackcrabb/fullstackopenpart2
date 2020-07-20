@@ -29,9 +29,12 @@ const Content = (prop) => {
 }
 
 const Total = (tot) => {
+  const total = tot.parts.reduce((sum, parts)=>{
+    return sum + parts.exercises
+  },0)
   return(
     <>
-    <h3>total of {tot.parts[0].exercises + tot.parts[1].exercises + tot.parts[2].exercises + tot.parts[3].exercises} exercises</h3>
+    <h3>total of {total} exercises</h3>
     </>
   )
 }
