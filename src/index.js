@@ -20,10 +20,10 @@ const Part = (par) => {
 const Content = (prop) => {
   return(
     <>
-      <Part part={prop.parts[0].name} exercise={prop.parts[0].exercises}/>
-      <Part part={prop.parts[1].name} exercise={prop.parts[1].exercises}/>
-      <Part part={prop.parts[2].name} exercise={prop.parts[2].exercises}/>
-      <Part part={prop.parts[3].name} exercise={prop.parts[3].exercises}/>
+    {
+      prop.parts.map((n)=>
+        <Part key={n.key} part={n.name} exercise={n.exercises} />
+      )}
     </>
   )
 }
@@ -41,16 +41,24 @@ const Total = (tot) => {
 
 const Course = (props) => {
     return (
-      <>
-      <Header name={props.course.name} />
-      <Content parts = {props.course.parts} />
-      <Total parts = {props.course.parts}/>
-      </>
+      <div>
+      {
+        props.course.map((ex)=>
+        <React.Fragment>
+          <Header key={ex.id} name={ex.name} />
+          <Content key={ex.id} parts = {ex.parts} />
+          <Total key={ex.id} parts = {ex.parts}/>
+        </React.Fragment>
+         
+        )
+      }
+      </div>
     )
 }
 
 const App = () => {
-  const course = {
+  const course = [
+    {
     id: 1,
     name: 'Half Stack application development',
     parts: [
@@ -75,7 +83,24 @@ const App = () => {
         id: 4
       }
     ]
+  },
+  {
+    name: 'Node.js',
+    id: 2,
+    parts: [
+      {
+        name: 'Routing',
+        exercises: 3,
+        id: 1
+      },
+      {
+        name: 'Middlewares',
+        exercises: 7,
+        id: 2
+      }
+    ]
   }
+]
 
   return <Course course={course} />
 }
