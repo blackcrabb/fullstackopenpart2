@@ -1,85 +1,48 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React, { useState } from 'react'
 
-const Header = (head) => {
-  return(
-    <>
-    <h1>{head.name}</h1>
-    </>
-  )
-}
-
-const Part = (par) => {
-  return(
-    <>
-    <p>{par.part} {par.exercise}</p>
-    </> 
-  )
-}
-
-const Content = (prop) => {
-  return(
-    <>
-      <Part part={prop.parts[0].name} exercise={prop.parts[0].exercises}/>
-      <Part part={prop.parts[1].name} exercise={prop.parts[1].exercises}/>
-      <Part part={prop.parts[2].name} exercise={prop.parts[2].exercises}/>
-      <Part part={prop.parts[3].name} exercise={prop.parts[3].exercises}/>
-    </>
-  )
-}
-
-const Total = (tot) => {
-  return(
-    <>
-    <h3>total of {tot.parts[0].exercises + tot.parts[1].exercises + tot.parts[2].exercises + tot.parts[3].exercises} exercises</h3>
-    </>
-  )
-}
-
-const Course = (props) => {
-    return (
-      <>
-      <Header name={props.course.name} />
-      <Content parts = {props.course.parts} />
-      <Total parts = {props.course.parts}/>
-      </>
-    )
-}
 
 const App = () => {
-  const course = {
-    id: 1,
-    name: 'Half Stack application development',
-    parts: [
-      {
-        name: 'Fundamentals of React',
-        exercises: 10,
-        id: 1
-      },
-      {
-        name: 'Using props to pass data',
-        exercises: 7,
-        id: 2
-      },
-      {
-        name: 'State of a component',
-        exercises: 14,
-        id: 3
-      },
-      {
-        name: 'Redux',
-        exercises: 11,
-        id: 4
-      }
-    ]
+
+  const [ persons, setPersons ] = useState([
+    { name: 'Arto Hellas' }
+  ]) 
+  const [ newName, setNewName ] = useState('')
+
+  const handleNameChange = (event) => {
+    console.log(event.target.value)
+    setNewName(event.target.value)
   }
 
-  return <Course course={course} />
+  const addName = (event) => {
+    event.preventDefault()
+    console.log('button clicked', event.target)
+    setPersons(persons.concat(event.target.value))
+  }
+
+  
+
+  return (
+    <div>
+      <h2>Phonebook</h2>
+      <form onSubmit={addName}>
+        <div>
+          name: <input 
+          value={newName}
+          onChange={handleNameChange}
+            />
+        </div>
+        <div>
+          <button type="submit" >add</button>
+        </div>
+      </form>
+      <h2>Numbers</h2>
+      <br/>
+        {persons.name}
+    </div>
+  )
 }
 
-ReactDOM.render(<App />, document.getElementById('root'))
-
-
+export default App
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
