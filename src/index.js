@@ -1,48 +1,56 @@
-import React, { useState } from 'react'
-
+import React, { useState } from 'react';
+import ReactDOM from 'react-dom';
 
 const App = () => {
 
   const [ persons, setPersons ] = useState([
     { name: 'Arto Hellas' }
-  ]) 
-  const [ newName, setNewName ] = useState('')
+  ])
+  const [allClicks, setAll] = useState([]) 
+ 
+  //var i=0;
 
   const handleNameChange = (event) => {
     console.log(event.target.value)
-    setNewName(event.target.value)
+  //  setAll(allClicks.concat(event.target.value))
+    setPersons(event.target.value)
+  //  i++
   }
 
-  const addName = (event) => {
-    event.preventDefault()
-    console.log('button clicked', event.target)
-    setPersons(persons.concat(event.target.value))
-  }
-
-  
+//  const addName = (event) => {
+   
+//console.log(allClicks)
+//setPersons(event.target.value)
+ //   console.log("added");
+    //i++;
+//}
 
   return (
     <div>
       <h2>Phonebook</h2>
-      <form onSubmit={addName}>
+      <form >
         <div>
           name: <input 
-          value={newName}
-          onChange={handleNameChange}
+         value={persons.name}
+         onClick={handleNameChange}
             />
         </div>
         <div>
-          <button type="submit" >add</button>
+          <button type="submit">add</button>
         </div>
       </form>
       <h2>Numbers</h2>
       <br/>
-        {persons.name}
+        {allClicks.join(' ')}
     </div>
   )
 }
 
-export default App
+ReactDOM.render(
+  <App />,
+  document.getElementById('root')
+)
+
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
