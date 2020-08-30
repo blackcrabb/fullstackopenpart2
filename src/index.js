@@ -6,42 +6,39 @@ const App = () => {
   const [ persons, setPersons ] = useState([
     { name: 'Arto Hellas' }
   ])
-  const [allClicks, setAll] = useState([]) 
- 
-  //var i=0;
+  const [newName, setNewName] = useState("");
 
-  const handleNameChange = (event) => {
-    console.log(event.target.value)
-  //  setAll(allClicks.concat(event.target.value))
-    setPersons(event.target.value)
-  //  i++
-  }
+  const handleChange = (event) => {
+   setNewName(event.target.value);
+  };
 
-//  const addName = (event) => {
-   
-//console.log(allClicks)
-//setPersons(event.target.value)
- //   console.log("added");
-    //i++;
-//}
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setPersons(persons.concat({ name: newName }));
+     setNewName("");
+  };
+  
 
   return (
     <div>
       <h2>Phonebook</h2>
-      <form >
+      <form onSubmit={handleSubmit}>
         <div>
-          name: <input 
-         value={persons.name}
-         onClick={handleNameChange}
+          name: <input id="insi"
+          value={persons.name}
+           onChange={handleChange}
             />
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
+        </div> 
+        <div> 
+          <button type="submit" >add</button>
+        </div> 
       </form>
       <h2>Numbers</h2>
       <br/>
-        {allClicks.join(' ')}
+      
+        {persons.map(person => <li>{person.name}</li>
+        )}
+      
     </div>
   )
 }
