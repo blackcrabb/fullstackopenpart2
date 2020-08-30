@@ -14,8 +14,19 @@ const App = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setPersons(persons.concat({ name: newName }));
-     setNewName("");
+    // 2.7
+    const result= persons.find(({name}) => name===newName)
+    console.log(result)
+     if(result !== undefined)
+     { 
+       alert(`${newName} is already added to phonebook`)
+    }
+     else
+     {
+      setPersons(persons.concat({ name: newName }));
+      setNewName(""); 
+     }
+     
   };
   
 
@@ -36,7 +47,7 @@ const App = () => {
       <h2>Numbers</h2>
       <br/>
       
-        {persons.map(person => <li>{person.name}</li>
+        {persons.map(person => <li key={person.key}>{person.name}</li>
         )}
       
     </div>
