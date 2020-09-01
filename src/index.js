@@ -4,11 +4,14 @@ import ReactDOM from 'react-dom';
 const App = () => {
 
   const [ persons, setPersons ] = useState([
-    { name: 'Arto Hellas', number: '040-1234567' }
+    { name: 'Arto Hellas', number: '040-1234567' },
+    { name: 'Ada Lovelace', number: '39-44-5323523' },
+    { name: 'Dan Abramov', number: '12-43-234345' },
+    { name: 'Mary Poppendieck', number: '39-23-6423122' }
   ])
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
-
+  // const [show, setShow] = useState("")
 
   const handleChange = (event) => {
    setNewName(event.target.value);
@@ -16,9 +19,13 @@ const App = () => {
   const handleNumber = (event) => {
     setNewNumber(event.target.value);
   }
+
+  // const handleSearch = (event) => {
+    // setShow(event.target.value);
+  // }
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    // 2.7
     const result= persons.find(({name}) => name===newName)
      if(result !== undefined)
      { 
@@ -36,23 +43,15 @@ const App = () => {
 
   return (
     <div>
-      <h2>Phonebook</h2>
-      <form onSubmit={handleSubmit}>
+      <h1>Phonebook</h1>
+      
         <div>
-          name: <input
-          value={persons.name}
-           onChange={handleChange}
-            />
-            <br/>
-            number: <input
-          value={persons.number}
-           onChange={handleNumber}
-            /> 
-        </div> 
-        <div> 
-          <button type="submit" >add</button>
-        </div> 
-      </form>
+          {/* filter shown with <input */}
+          {/* value={persons.name} */}
+          {/* onChange={handleSearch}/> */}
+        </div>
+        <h2>add a new</h2>
+  
       <h2>Numbers</h2>
       <br/>
         {persons.map(person => <li key={person.key}>{person.name} {person.number}</li>
