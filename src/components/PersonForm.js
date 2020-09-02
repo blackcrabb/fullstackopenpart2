@@ -5,13 +5,13 @@ const PersonForm = (prop) => {
         <form onSubmit={prop.handleSubmit}>
         <div>
           name: <input
-          value={persons.name}
-           onChange={handleChange}
+          value={prop.name}
+           onChange={prop.handleChange}
             />
             <br/>
             number: <input
-          value={persons.number}
-           onChange={handleNumber}
+          value={prop.number}
+           onChange={prop.handleNumber}
             /> 
         </div> 
         <div> 
@@ -20,3 +20,5 @@ const PersonForm = (prop) => {
       </form>
     )
 }
+
+export default PersonForm

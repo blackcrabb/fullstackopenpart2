@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
+import PersonForm from './components/PersonForm'
+import Persons from './components/Persons'
+import Filter from './components/Filter'
 
 const App = () => {
 
@@ -11,7 +14,8 @@ const App = () => {
   ])
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
-  // const [show, setShow] = useState("")
+  const [filter, setFilter] = useState("")
+  const [filteredperson, setFilteredperson] = useState(persons)
 
   const handleChange = (event) => {
    setNewName(event.target.value);
@@ -20,9 +24,14 @@ const App = () => {
     setNewNumber(event.target.value);
   }
 
-  // const handleSearch = (event) => {
-    // setShow(event.target.value);
-  // }
+ const handleFilter = (event) => {
+     setFilter(event.target.value);
+     setFilteredperson(
+      persons.filter((person) =>
+        person.name.includes(event.target.value.toLowerCase())
+      )
+    );
+   }
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -33,7 +42,9 @@ const App = () => {
     }
      else
      {
-      setPersons(persons.concat({ name: newName , number: newNumber}));
+      let tempper= setPersons(persons.concat({ name: newName , number: newNumber}));
+      setPersons(tempper)
+      setFilteredperson(tempper)
       setNewName(""); 
       setNewNumber(""); 
      }
@@ -46,16 +57,13 @@ const App = () => {
       <h1>Phonebook</h1>
       
         <div>
-          {/* filter shown with <input */}
-          {/* value={persons.name} */}
-          {/* onChange={handleSearch}/> */}
+          <Filter filter={filter} handleFilter={handleFilter} />
         </div>
         <h2>add a new</h2>
-  
+      <PersonForm handleSubmit={handleSubmit} name={persons.name} handleChange={handleChange} number={persons.number} handleNumber={handleNumber} />
       <h2>Numbers</h2>
       <br/>
-        {persons.map(person => <li key={person.key}>{person.name} {person.number}</li>
-        )}
+      <Persons persons={filteredperson}/>
       
     </div>
   )
